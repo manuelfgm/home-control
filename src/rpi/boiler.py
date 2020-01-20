@@ -12,25 +12,25 @@ controller = Controller()
 
 def on_message(client, userdata, message):
     if message.topic == "home/params/set/time_start":
-        param = str(message.payload.decode("utf-8"), "%H:%M")
+        param = str(message.payload.decode("utf-8"))
         client.publish("home/params/status/time_start", param)
         controller.set_time_start(datetime.strptime(param))
-        loggin.info("Set Param Time Start: " + param + "h")
+        logging.info("Set Param Time Start: " + param + "h")
     elif message.topic == "home/params/set/time_stop":
-        param = str(message.payload.decode("utf-8"), "%H:%M")
+        param = str(message.payload.decode("utf-8"))
         client.publish("home/params/status/time_stop", param)
         controller.set_time_stop(datetime.strptime(param))
-        loggin.info("Set Param Time Stop: " + param + "h")
+        logging.info("Set Param Time Stop: " + param + "h")
     elif message.topic == "home/params/set/user_temp":
         param = float(message.payload.decode("utf-8"))
         client.publish("home/params/status/user_temp", param)
         controller.set_user_temp(param)
-        loggin.info("Set Param User Temp: " + str(param) + "ºC")
+        logging.info("Set Param User Temp: " + str(param) + "ºC")
     elif message.topic == "home/params/set/back_temp":
         param = float(message.payload.decode("utf-8"))
-        client.publish("home/param/status/back_temp", param)
+        client.publish("home/params/status/back_temp", param)
         controller.set_back_temp(param)
-        loggin.info("Set Param Back Temp: " + str(param) + "ºC")
+        logging.info("Set Param Back Temp: " + str(param) + "ºC")
     elif message.topic == "home/params/get":
         client.publish("home/params/status/time_start", controller.get_time_start().strftime("%H:%M"))
         client.publish("home/params/status/time_stop", controller.get_time_stop().strftime("%H:%M"))
