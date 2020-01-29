@@ -14,12 +14,12 @@ def on_message(client, userdata, message):
     if message.topic == "home/params/set/time_start":
         param = str(message.payload.decode("utf-8"))
         client.publish("home/params/status/time_start", param)
-        controller.set_time_start(datetime.strptime(param))
+        controller.set_time_start(time.strptime(param, "%H:%M"))
         logging.info("Set Param Time Start: " + param + "h")
     elif message.topic == "home/params/set/time_stop":
         param = str(message.payload.decode("utf-8"))
         client.publish("home/params/status/time_stop", param)
-        controller.set_time_stop(datetime.strptime(param))
+        controller.set_time_stop(time.strptime(param, "%H:%M"))
         logging.info("Set Param Time Stop: " + param + "h")
     elif message.topic == "home/params/set/user_temp":
         param = float(message.payload.decode("utf-8"))
