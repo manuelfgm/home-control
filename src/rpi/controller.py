@@ -13,8 +13,8 @@ class Controller:
                  stop = time(hour = 22, minute = 0, second = 0, microsecond = 0)):
         self.__time_start = start
         self.__time_stop = stop
-        self.__user_temp = 20.5
-        self.__back_temp = 17.0
+        self.__user_temp = 20.0
+        self.__back_temp = 18.0
         self.__target_temp = self.__back_temp
         self.__margin = 0.1
 
