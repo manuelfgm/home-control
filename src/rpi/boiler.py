@@ -38,7 +38,7 @@ def on_message(client, userdata, message):
         client.publish("home/params/status/time_stop", controller.get_time_stop().strftime("%H:%M"))
         client.publish("home/params/status/user_temp", controller.get_user_temp())
         client.publish("home/params/status/back_temp", controller.get_back_temp())
-    elif message.topic == "home/boiler/status":
+    elif message.topic == "home/relay/status":
         logging.info("Boiler Feedback: " + str(message.payload.decode("utf-8")))
 
 
@@ -49,7 +49,7 @@ DHT_SENSOR = Adafruit_DHT.DHT22
 DHT_PIN = 4
 client = mqtt.Client("RPi")
 client.connect("localhost")
-client.subscribe("home/boiler/status")
+client.subscribe("home/relay/status")
 client.subscribe("home/params/set/#")
 client.subscribe("home/params/get")
 client.on_message = on_message
@@ -81,10 +81,10 @@ while True:
         signal = controller.control(temperature, now.time())
         log_str += " Target={0:0.1f}ºC".format(controller.get_target_temp())
         if signal == ControlResult.TURN_ON:
-            client.publish("home/boiler/relay", 1)
+            client.publish("home/relay/set", 1)
             log_str += " ON"
         elif signal == ControlResult.TURN_OFF:
-            client.publish("home/boiler/relay", 0)
+            client.publish("home/relay/set", 0)
             log_str += " OFF"
     else:
         log_str += " Failed to retrieve data from sensor"

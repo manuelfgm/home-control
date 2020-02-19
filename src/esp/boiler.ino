@@ -68,14 +68,22 @@ void callback(char* topic, byte* payload, unsigned int length)
     Serial.print((char)payload[i]);
   }
   Serial.println();
- 
-  // Switch on the LED if an 1 was received as first character
-  if ((char)payload[0] == '1') {
-    digitalWrite(RELAY, LOW); 
-    client.publish("home/boiler/status", "ON");
-  } else {
-    digitalWrite(RELAY, HIGH); 
-    client.publish("home/boiler/status", "OFF");
+
+  if (strcmp(topic, "home/relay/set") == 0){
+    // Switch on the LED if an 1 was received as first character
+    if ((char)payload[0] == '1') {
+      digitalWrite(RELAY, LOW); 
+      client.publish("home/relay/status", "ON");
+    } else if ((char)payload[0] == '0'){
+      digitalWrite(RELAY, HIGH); 
+      client.publish("home/relay/status", "OFF");
+    }
+  }else {
+    if(digitalRead(RELAY) == LOW){
+      client.publish("home/relay/status", "ON");
+    } else{
+      client.publish("home/realy/status", "OFF");
+    }
   }
 }
  
@@ -88,17 +96,23 @@ void reconnect()
     if (client.connect("ESP8266Client")) {
       Serial.println("connected");
       // Once connected, publish an announcement...
-      client.publish("home/boiler/status", "--");
+      client.publish("home/relay/status", "(Re)Connected");
       // ... and resubscribe
-      client.subscribe("home/boiler/relay");
+      client.subscribe("home/relay/set");
+      client.subscribe("home/relay/get");
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
       Serial.println(" try again in 5 seconds");
       // Wait 5 seconds before retrying
-      delay(5000);
+      for(int i = 0; i < 10; ++i)
+      {
+        digitalWrite(LED, !digitalRead(LED));
+        delay(500);
+      }
     }
   }
+  digitalWrite(LED, LOW);
 }
  
 void loop() 
