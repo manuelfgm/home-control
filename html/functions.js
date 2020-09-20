@@ -4,8 +4,8 @@ function startConnect() {
     clientID = "clientID-" + parseInt(Math.random() * 100);
 
     // Fetch the hostname/IP address and port number from the form
-    host = document.getElementById("host").value;
-    port = document.getElementById("port").value;
+    host = "192.168.1.100";//document.getElementById("host").value;
+    port = "8080";//document.getElementById("port").value;
 
     // Print output for the user in the messages div
     document.getElementById("messages").innerHTML += '<span>Connecting to: ' + host + ' on port: ' + port + '</span><br/>';
@@ -26,14 +26,12 @@ function startConnect() {
 
 // Called when the client connects
 function onConnect() {
-    // Fetch the MQTT topic from the form
-    topic = document.getElementById("topic").value;
 
     // Print output for the user in the messages div
-    document.getElementById("messages").innerHTML += '<span>Subscribing to: ' + topic + '</span><br/>';
+    document.getElementById("messages").innerHTML += '<span>Subscribing to: home/#</span><br/>';
 
     // Subscribe to the requested topic
-    client.subscribe(topic);
+    client.subscribe("home/#");
 }
 
 // Called when the client loses its connection
@@ -47,8 +45,21 @@ function onConnectionLost(responseObject) {
 // Called when a message arrives
 function onMessageArrived(message) {
     console.log("onMessageArrived: " + message.payloadString);
-    document.getElementById("messages").innerHTML += '<span>Topic: ' + message.destinationName + '  | ' + message.payloadString + '</span><br/>';
+	topic = message.destinationName;
+	value = message.payloadString;
+    document.getElementById("messages").innerHTML += '<span>Topic: ' + topic + '  | ' + value + '</span><br/>';
     updateScroll();
+	if(topic == "home/params/status/time_start"){
+		document.getElementById("startTime").innerHTML = value;
+	}else if(topic == "home/params/status/time_stop"){
+		document.getElementById("stopTime").innerHTML = value;
+	}else if(topic == "home/params/status/user_temp"){
+		document.getElementById("userTemp").innerHTML = value + ' ºC';
+	}else if(topic == "home/params/status/back_temp"){
+		document.getElementById("backTemp").innerHTML = value + ' ºC';
+	}else if(topic == "home/relay/status"){
+		document.getElementById("boilerStatus").innerHTML = value;
+	}
 }
 
 // Called when the disconnection button is pressed

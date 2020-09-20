@@ -1,26 +1,121 @@
 <!DOCTYPE html>
 <html>
-   <head>
+	<head>
       <meta charset="utf-8">
-      <title>mqtt-demo: A simple web application that can subscribe to topics from an MQTT broker over websockets</title>
+      <title>MQTT home server</title>
       <link rel="stylesheet" href="style.css">
       <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.2/mqttws31.min.js" type="text/javascript"></script>
       <script src="functions.js" type="text/javascript"></script>
-   </head>
-   <body>
-      <div class="wrapper">
-         <h1>mqtt-demo</h1>
-         <form id="connection-information-form">
-            <b>Hostname or IP Address:</b> 
-            <input id="host" type="text" name="host" value="test.mosquitto.org"><br>
-            <b>Port:</b>
-            <input id="port" type="text" name="port" value="8080"><br>
-            <b>Topic:</b>
-            <input id="topic" type="text" name="topic" value="#"><br><br>
-            <input type="button" onclick="startConnect()" value="Connect">
-            <input type="button" onclick="startDisconnect()" value="Disconnect">
-         </form>
-         <div id="messages"></div>
-      </div>
+	</head>
+	<body>
+	<div class="content">
+		<div class="title">
+		<h1>TIZA & TIZON'S PLACE</h1>
+		</div>
+		
+		<input type="button" onclick="startConnect()" value="Conectar">
+		<input type="button" onclick="startDisconnect()" value="Desconectar">
+		<div class="property">
+			<b>Estado:</b><br>	
+			<table>
+				<tr>
+					<td>Caldera:</td>
+					<td><textarea rows="1" cols="10" id="boilerStatus" disabled></textarea></td>
+				</tr>
+				<tr>
+					<td>Temp Actual:</td>
+					<td><textarea rows="1" cols="10" id="currentTemp" disabled></textarea></td>
+				</tr>
+				<tr>
+					<td>Temp Encendido:</td>
+					<td><textarea rows="1" cols="10" id="userTemp" disabled></textarea></td>
+				</tr>
+				<tr>
+					<td>Temp Apagado:</td>
+					<td><textarea rows="1" cols="10" id="backTemp" disabled></textarea></td>
+				</tr>
+				<tr>
+					<td>Hora Encendido:</td>
+					<td><textarea rows="1" cols="10" id="startTime" disabled></textarea></td>
+				</tr>
+				<tr>
+					<td>Hora Apagado:</td>
+					<td><textarea rows="1" cols="10" id="stopTime" disabled></textarea></td>
+				</tr>
+			</table>
+		</div>
+		<div class="property">
+			<b>Opciones:</b><br>	
+			<table>
+				<tr>
+					<td>Temp Encendido:</td>
+					<td>
+					<select id="userTempSelect">
+						<option selected value="0"> -- </option>
+						<option value="1"> 17 ºC </option>
+						<option value="2"> 18 ºC </option>
+						<option value="3"> 19 ºC </option>
+						<option value="4"> 20 ºC </option>
+						<option value="5"> 21 ºC </option>
+						<option value="6"> 22 ºC </option>
+						<option value="7"> 23 ºC </option>
+						<option value="8"> 24 ºC </option>
+					</select>
+					</td>
+					<td>
+					<input type="button" id="userTempSet" value="Set" />
+					</td>
+				</tr>
+				<tr>
+					<td>Temp Apagado:</td>
+					<td>
+					<select id="backTempSelect">
+						<option selected value="0"> -- </option>
+						<option value="1"> 17 ºC </option>
+						<option value="2"> 18 ºC </option>
+						<option value="3"> 19 ºC </option>
+						<option value="4"> 20 ºC </option>
+						<option value="5"> 21 ºC </option>
+						<option value="6"> 22 ºC </option>
+						<option value="7"> 23 ºC </option>
+						<option value="8"> 24 ºC </option>
+					</select>
+					</td>
+					<td>
+					<input type="button" id="backTempSet" value="Set" />
+					</td>
+				</tr>
+				<tr>
+					<td>Hora Encendido:</td>
+					<td><textarea rows="1" cols="10" id="startTimeSelect"></textarea>
+					</td>
+					<td>
+					<input type="button" id="setIsoMid" value="Set" />
+					</td>
+				</tr>
+				<tr>
+					<td>Hora Apagado:</td>
+					<td><textarea rows="1" cols="10" id="stopTimeSelect"></textarea>
+					</td>
+					<td>
+					<input type="button" id="setIsoMid" value="Set" />
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div id="messages"></div>
+		<!-- <form id="connection-information-form"> -->
+            <!-- <b>Hostname or IP Address:</b>  -->
+            <!-- <input id="host" type="text" name="host" value="192.168.1.100"><br> -->
+            <!-- <b>Port:</b> -->
+            <!-- <input id="port" type="text" name="port" value="1883"><br> -->
+            <!-- <b>Topic:</b> -->
+            <!-- <input id="topic" type="text" name="topic" value="/home/#"><br><br> -->
+            <!-- <input type="button" onclick="startConnect()" value="Connect"> -->
+            <!-- <input type="button" onclick="startDisconnect()" value="Disconnect"> -->
+			<!-- </form> -->
+			<!-- <div id="messages"></div> -->
+		<!-- </div> -->
+	</div>
    </body>
 </html>
