@@ -32,6 +32,14 @@ function onConnect() {
 
     // Subscribe to the requested topic
     client.subscribe("home/#");
+	
+	// Send update commands
+	message1 = new Paho.MQTT.Message("1");
+	message1.destinationName = "home/relay/get";
+	client.send(message1);
+	message2 = new Paho.MQTT.Message("1");
+	message2.destinationName = "home/params/get";
+	client.send(message2);
 }
 
 // Called when the client loses its connection
@@ -57,9 +65,40 @@ function onMessageArrived(message) {
 		document.getElementById("userTemp").innerHTML = value + ' ºC';
 	}else if(topic == "home/params/status/back_temp"){
 		document.getElementById("backTemp").innerHTML = value + ' ºC';
-	}else if(topic == "home/relay/status"){
+	}else if(topic == "home/params/status/curr_temp"){
+		document.getElementById("currentTemp").innerHTML = value + ' ºC';
+	}else if(topic == "home/realy/status"){
 		document.getElementById("boilerStatus").innerHTML = value;
 	}
+}
+
+
+function setUserTemp(){
+	var sel = Number(document.getElementById("userTempSelect").value) + 16;
+	message = new Paho.MQTT.Message(sel.toString());
+	message.destinationName = "home/params/set/user_temp";
+	client.send(message);
+}
+
+function setBackTemp(){
+	var sel = Number(document.getElementById("backTempSelect").value) + 16;
+	message = new Paho.MQTT.Message(sel.toString());
+	message.destinationName = "home/params/set/back_temp";
+	client.send(message);
+}
+
+function setStartTime(){
+	var sel = document.getElementById("startTimeSelect").value;
+	message = new Paho.MQTT.Message(sel);
+	message.destinationName = "home/params/set/time_start";
+	client.send(message);
+}
+
+function setStopTime(){
+	var sel = document.getElementById("stopTimeSelect").value;
+	message = new Paho.MQTT.Message(sel);
+	message.destinationName = "home/params/set/time_stop";
+	client.send(message);
 }
 
 // Called when the disconnection button is pressed
