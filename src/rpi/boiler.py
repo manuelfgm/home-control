@@ -17,23 +17,28 @@ def on_message(client, userdata, message):
         start = datetime.strptime(param, "%H:%M")
         controller.set_time_start(start.time())
         logging.info("Set Param Time Start: " + param + "h")
+        set_flag = True
     elif message.topic == "home/params/set/time_stop":
         param = str(message.payload.decode("utf-8"))
         client.publish("home/params/status/time_stop", param)
         stop = datetime.strptime(param, "%H:%M")
         controller.set_time_stop(stop.time())
         logging.info("Set Param Time Stop: " + param + "h")
+        set_flag = True
     elif message.topic == "home/params/set/user_temp":
         param = float(message.payload.decode("utf-8"))
         client.publish("home/params/status/user_temp", param)
         controller.set_user_temp(param)
         logging.info("Set Param User Temp: " + str(param) + "ºC")
+        set_flag = True
     elif message.topic == "home/params/set/back_temp":
         param = float(message.payload.decode("utf-8"))
         client.publish("home/params/status/back_temp", param)
         controller.set_back_temp(param)
         logging.info("Set Param Back Temp: " + str(param) + "ºC")
+        set_flag = True
     elif message.topic == "home/params/get":
+        client.publish("home/params/status/curr_temp", "{0:0.1f}".format(temperature))
         client.publish("home/params/status/time_start", controller.get_time_start().strftime("%H:%M"))
         client.publish("home/params/status/time_stop", controller.get_time_stop().strftime("%H:%M"))
         client.publish("home/params/status/user_temp", controller.get_user_temp())
@@ -54,6 +59,7 @@ client.subscribe("home/params/set/#")
 client.subscribe("home/params/get")
 client.on_message = on_message
 client.loop_start()
+set_flag = False
 
 # Log file
 for handler in logging.root.handlers[:]:
@@ -93,5 +99,11 @@ while True:
     logging.info(log_str)
 
     # Wait
-    time.sleep(600)
+    i = 0
+    while True:
+        time.sleep(1)
+        i += 1
+        if i >= 600 or set_flag == True:
+            set_flag = False
+            break
 
