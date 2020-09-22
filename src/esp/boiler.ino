@@ -73,17 +73,14 @@ void callback(char* topic, byte* payload, unsigned int length)
     // Switch on the LED if an 1 was received as first character
     if ((char)payload[0] == '1') {
       digitalWrite(RELAY, LOW); 
-      client.publish("home/relay/status", "ON");
     } else if ((char)payload[0] == '0'){
       digitalWrite(RELAY, HIGH); 
-      client.publish("home/relay/status", "OFF");
     }
-  }else {
-    if(digitalRead(RELAY) == LOW){
-      client.publish("home/relay/status", "ON");
-    } else{
-      client.publish("home/realy/status", "OFF");
-    }
+  }
+  if(digitalRead(RELAY) == LOW){
+    client.publish("home/relay/status", "ON");
+  } else{
+    client.publish("home/relay/status", "OFF");
   }
 }
  

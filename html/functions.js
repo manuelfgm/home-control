@@ -57,9 +57,9 @@ function onMessageArrived(message) {
 	value = message.payloadString;
     document.getElementById("messages").innerHTML += '<span>Topic: ' + topic + '  | ' + value + '</span><br/>';
     updateScroll();
-	if(topic == "home/params/status/time_start"){
+	if(topic == "home/params/status/start_time"){
 		document.getElementById("startTime").innerHTML = value;
-	}else if(topic == "home/params/status/time_stop"){
+	}else if(topic == "home/params/status/stop_time"){
 		document.getElementById("stopTime").innerHTML = value;
 	}else if(topic == "home/params/status/user_temp"){
 		document.getElementById("userTemp").innerHTML = value + ' ºC';
@@ -67,7 +67,7 @@ function onMessageArrived(message) {
 		document.getElementById("backTemp").innerHTML = value + ' ºC';
 	}else if(topic == "home/params/status/curr_temp"){
 		document.getElementById("currentTemp").innerHTML = value + ' ºC';
-	}else if(topic == "home/realy/status"){
+	}else if(topic == "home/relay/status"){
 		document.getElementById("boilerStatus").innerHTML = value;
 	}
 }
