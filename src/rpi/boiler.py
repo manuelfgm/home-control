@@ -11,16 +11,16 @@ import paho.mqtt.client as mqtt
 controller = Controller()
 
 def on_message(client, userdata, message):
-    if message.topic == "home/params/set/time_start":
+    if message.topic == "home/params/set/start_time":
         param = str(message.payload.decode("utf-8"))
-        client.publish("home/params/status/time_start", param)
+        client.publish("home/params/status/start_time", param)
         start = datetime.strptime(param, "%H:%M")
         controller.set_time_start(start.time())
         logging.info("Set Param Time Start: " + param + "h")
         set_flag = True
-    elif message.topic == "home/params/set/time_stop":
+    elif message.topic == "home/params/set/stop_time":
         param = str(message.payload.decode("utf-8"))
-        client.publish("home/params/status/time_stop", param)
+        client.publish("home/params/status/stop_time", param)
         stop = datetime.strptime(param, "%H:%M")
         controller.set_time_stop(stop.time())
         logging.info("Set Param Time Stop: " + param + "h")
@@ -39,8 +39,8 @@ def on_message(client, userdata, message):
         set_flag = True
     elif message.topic == "home/params/get":
         client.publish("home/params/status/curr_temp", "{0:0.1f}".format(temperature))
-        client.publish("home/params/status/time_start", controller.get_time_start().strftime("%H:%M"))
-        client.publish("home/params/status/time_stop", controller.get_time_stop().strftime("%H:%M"))
+        client.publish("home/params/status/start_time", controller.get_time_start().strftime("%H:%M"))
+        client.publish("home/params/status/start_time", controller.get_time_stop().strftime("%H:%M"))
         client.publish("home/params/status/user_temp", controller.get_user_temp())
         client.publish("home/params/status/back_temp", controller.get_back_temp())
     elif message.topic == "home/relay/status":
@@ -86,6 +86,7 @@ while True:
         log_str += " Temp={0:0.1f}ºC Hum={1:0.1f}%".format(temperature, humidity)
         signal = controller.control(temperature, now.time())
         log_str += " Target={0:0.1f}ºC".format(controller.get_target_temp())
+        client.publish("home/params/status/curr_temp", "{0:0.1f}".format(temperature))
         if signal == ControlResult.TURN_ON:
             client.publish("home/relay/set", 1)
             log_str += " ON"
