@@ -2,10 +2,10 @@ body {
     font-family: "Open Sans", sans-serif;
 }
 .content {
-	max-width: 80%;
+	max-width: 90%;
 	margin: auto;
 	font-family:myfont, Arial;;
-	font-size:14px;
+	font-size:18px;
 	color: #3d434c;
 }
 .title {
@@ -40,26 +40,22 @@ input {
 }
 input[type=text] {
     width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
+    padding: 18px 20px;
+    margin: 1px 0;
 }
 input[type=button] {
     background-color: gray;
     border: none;
     color: black;
-    padding: 2px 8px;
+    padding: 6px 6px;
     text-decoration: none;
     font-weight: bold;
-    margin: 4px 2px;
+    margin: 1px 1px;
     cursor: pointer;
 }
-input[type=text]:focus {
-    background-color: lightblue;
-}
-input[type=button]:hover {
-    background-color: #686868;
-}
 #messages {
+	font-family:myfont, Arial;;
+	font-size:12px;
     margin-top: 12px;
     margin-bottom: 12px;
     padding: 12px;

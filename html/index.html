@@ -19,7 +19,7 @@
 			<b>Estado:</b><br>	
 			<table>
 				<tr>
-					<td>Caldera:</td>
+					<td>Estado Caldera:</td>
 					<td><textarea rows="1" cols="10" id="boilerStatus" disabled></textarea></td>
 				</tr>
 				<tr>
@@ -27,19 +27,19 @@
 					<td><textarea rows="1" cols="10" id="currentTemp" disabled></textarea></td>
 				</tr>
 				<tr>
-					<td>Temp Encendido:</td>
+					<td>Temp Caliente:</td>
 					<td><textarea rows="1" cols="10" id="userTemp" disabled></textarea></td>
 				</tr>
 				<tr>
-					<td>Temp Apagado:</td>
+					<td>Temp Fr&iacute;a:</td>
 					<td><textarea rows="1" cols="10" id="backTemp" disabled></textarea></td>
 				</tr>
 				<tr>
-					<td>Hora Encendido:</td>
+					<td>Comienzo Caliente:</td>
 					<td><textarea rows="1" cols="10" id="startTime" disabled></textarea></td>
 				</tr>
 				<tr>
-					<td>Hora Apagado:</td>
+					<td>Comienzo Fr&iacute;a:</td>
 					<td><textarea rows="1" cols="10" id="stopTime" disabled></textarea></td>
 				</tr>
 			</table>
@@ -48,7 +48,7 @@
 			<b>Opciones:</b><br>	
 			<table>
 				<tr>
-					<td>Temp Encendido:</td>
+					<td>Temp Caliente:</td>
 					<td>
 					<select id="userTempSelect">
 						<option selected value="0"> -- </option>
@@ -63,11 +63,11 @@
 					</select>
 					</td>
 					<td>
-					<input type="button" id="userTempSet" onclick="setUserTemp()" value="Set" />
+					<input type="button" id="userTempSet" onclick="setUserTemp()" value="Cambiar" />
 					</td>
 				</tr>
 				<tr>
-					<td>Temp Apagado:</td>
+					<td>Temp Fr&iacute;a:</td>
 					<td>
 					<select id="backTempSelect">
 						<option selected value="0"> -- </option>
@@ -82,40 +82,29 @@
 					</select>
 					</td>
 					<td>
-					<input type="button" id="backTempSet" onclick="setBackTemp()" value="Set" />
+					<input type="button" id="backTempSet" onclick="setBackTemp()" value="Cambiar" />
 					</td>
 				</tr>
 				<tr>
-					<td>Hora Encendido:</td>
+					<td>Comienzo Caliente:</td>
 					<td><textarea rows="1" cols="10" id="startTimeSelect"></textarea>
 					</td>
 					<td>
-					<input type="button" id="startTimeSet" onclick="setStartTime()" value="Set" />
+					<input type="button" id="startTimeSet" onclick="setStartTime()" value="Cambiar" />
 					</td>
 				</tr>
 				<tr>
-					<td>Hora Apagado:</td>
+					<td>Comienzo Fr&iacute;a:</td>
 					<td><textarea rows="1" cols="10" id="stopTimeSelect"></textarea>
 					</td>
 					<td>
-					<input type="button" id="stopTimeSet" onclick="setStopTime()" value="Set" />
+					<input type="button" id="stopTimeSet" onclick="setStopTime()" value="Cambiar" />
 					</td>
 				</tr>
 			</table>
 		</div>
+		
 		<div id="messages"></div>
-		<!-- <form id="connection-information-form"> -->
-            <!-- <b>Hostname or IP Address:</b>  -->
-            <!-- <input id="host" type="text" name="host" value="192.168.1.100"><br> -->
-            <!-- <b>Port:</b> -->
-            <!-- <input id="port" type="text" name="port" value="1883"><br> -->
-            <!-- <b>Topic:</b> -->
-            <!-- <input id="topic" type="text" name="topic" value="/home/#"><br><br> -->
-            <!-- <input type="button" onclick="startConnect()" value="Connect"> -->
-            <!-- <input type="button" onclick="startDisconnect()" value="Disconnect"> -->
-			<!-- </form> -->
-			<!-- <div id="messages"></div> -->
-		<!-- </div> -->
 	</div>
    </body>
 </html>
