@@ -11,6 +11,7 @@ import paho.mqtt.client as mqtt
 controller = Controller()
 
 def on_message(client, userdata, message):
+    global set_flag
     if message.topic == "home/params/set/start_time":
         param = str(message.payload.decode("utf-8"))
         client.publish("home/params/status/start_time", param)
@@ -40,7 +41,7 @@ def on_message(client, userdata, message):
     elif message.topic == "home/params/get":
         client.publish("home/params/status/curr_temp", "{0:0.1f}".format(temperature))
         client.publish("home/params/status/start_time", controller.get_time_start().strftime("%H:%M"))
-        client.publish("home/params/status/start_time", controller.get_time_stop().strftime("%H:%M"))
+        client.publish("home/params/status/stop_time", controller.get_time_stop().strftime("%H:%M"))
         client.publish("home/params/status/user_temp", controller.get_user_temp())
         client.publish("home/params/status/back_temp", controller.get_back_temp())
     elif message.topic == "home/relay/status":
@@ -59,6 +60,7 @@ client.subscribe("home/params/set/#")
 client.subscribe("home/params/get")
 client.on_message = on_message
 client.loop_start()
+global set_flag
 set_flag = False
 
 # Log file
@@ -104,7 +106,7 @@ while True:
     while True:
         time.sleep(1)
         i += 1
-        if i >= 600 or set_flag == True:
-            set_flag = False
+        if i >= 600 or set_flag:
+            set_flag = 0
             break
 
