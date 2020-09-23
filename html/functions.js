@@ -55,7 +55,11 @@ function onMessageArrived(message) {
     console.log("onMessageArrived: " + message.payloadString);
 	topic = message.destinationName;
 	value = message.payloadString;
-    document.getElementById("messages").innerHTML += '<span>Topic: ' + topic + '  | ' + value + '</span><br/>';
+	var date = new Date();
+    document.getElementById("messages").innerHTML +=
+		'<span>'+ date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate() +
+		"-" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + ": " +
+		topic + '  | ' + value + '</span><br/>';
     updateScroll();
 	if(topic == "home/params/status/start_time"){
 		document.getElementById("startTime").innerHTML = value;
