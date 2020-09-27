@@ -14,12 +14,12 @@ body {
 	padding-bottom: 20px;
 	text-align: center;
 	font-family:myfont, Arial;;
-	font-size: 30px;
+	font-size: 24px;
 	color: #3d434c;
 }
 .property{
 	font-family:myfont, Arial;;
-	font-size:18px;
+	font-size:16px;
 	color: #3d434c;
 	background-color: #f4f5f7;
 	border-radius: 15px;
@@ -31,6 +31,11 @@ body {
 	border-left: 10px;
 	padding-bottom : 10px;
 }
+.areaoftext{
+	font-size:16px;
+}
+.my-table{
+}
 input {
     width : 150px;
     margin: 0;
@@ -38,16 +43,12 @@ input {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
-input[type=text] {
-    width: 100%;
-    padding: 18px 20px;
-    margin: 1px 0;
-}
 input[type=button] {
     background-color: gray;
+	font-size:16px;
     border: none;
     color: black;
-    padding: 6px 6px;
+    padding: 4px 6px;
     text-decoration: none;
     font-weight: bold;
     margin: 1px 1px;

@@ -2,6 +2,7 @@
 <html>
 	<head>
       <meta charset="utf-8">
+	  <meta name="viewport" content="initial-scale=1, width=device-width">
       <title>Servidor de Casa MQTT</title>
       <link rel="stylesheet" href="style.css">
       <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.2/mqttws31.min.js" type="text/javascript"></script>
@@ -17,40 +18,46 @@
 		<input type="button" onclick="startDisconnect()" value="Desconectar">
 		<div class="property">
 			<b>Estado:</b><br>	
-			<table>
+			<table class="my-table">
 				<tr>
-					<td>Estado Caldera:</td>
-					<td><textarea rows="1" cols="10" id="boilerStatus" disabled></textarea></td>
+					<td width="33%">Estado Caldera:</td>
+					<td width="33%"><textarea rows="1" class="areaoftext" cols="10" id="boilerStatus" disabled></textarea></td>
+					<td width="33%"></td>
 				</tr>
 				<tr>
-					<td>Temp Actual:</td>
-					<td><textarea rows="1" cols="10" id="currentTemp" disabled></textarea></td>
+					<td width="33%">Temp Actual:</td>
+					<td width="33%"><textarea rows="1" class="areaoftext" cols="10" id="currentTemp" disabled></textarea></td>
+					<td width="33%"></td>
 				</tr>
 				<tr>
-					<td>Temp Programada:</td>
-					<td><textarea rows="1" cols="10" id="userTemp" disabled></textarea></td>
+					<td width="33%">Temp Programada:</td>
+					<td width="33%"><textarea rows="1" class="areaoftext" cols="10" id="userTemp" disabled></textarea></td>
+					<td width="33%"></td>
 				</tr>
 				<tr>
-					<td>Temp L&iacute;mite:</td>
-					<td><textarea rows="1" cols="10" id="backTemp" disabled></textarea></td>
+					<td width="33%">Temp L&iacute;mite:</td>
+					<td width="33%"><textarea rows="1" class="areaoftext" cols="10" id="backTemp" disabled></textarea></td>
+					<td width="33%"></td>
 				</tr>
 				<tr>
-					<td>Comienzo Programada:</td>
-					<td><textarea rows="1" cols="10" id="startTime" disabled></textarea></td>
+					<td width="33%">Comienzo Programada:</td>
+					<td width="33%"><textarea rows="1" class="areaoftext" cols="10" id="startTime" disabled></textarea></td>
+					<td width="33%"></td>
 				</tr>
 				<tr>
-					<td>Fin Programada:</td>
-					<td><textarea rows="1" cols="10" id="stopTime" disabled></textarea></td>
+					<td width="33%">Fin Programada:</td>
+					<td width="33%"><textarea rows="1" class="areaoftext" cols="10" id="stopTime" disabled></textarea></td>
+					<td width="33%"></td>
 				</tr>
 			</table>
 		</div>
 		<div class="property">
 			<b>Opciones:</b><br>	
-			<table>
+			<table class="my-table">
 				<tr>
-					<td>Temp Programada:</td>
-					<td>
-					<select id="userTempSelect">
+					<td width="33%">Temp Programada:</td>
+					<td width="33%">
+					<select id="userTempSelect" class="areaoftext">
 						<option selected value="0"> -- </option>
 						<option value="1"> 17 ºC </option>
 						<option value="2"> 18 ºC </option>
@@ -62,14 +69,14 @@
 						<option value="8"> 24 ºC </option>
 					</select>
 					</td>
-					<td>
+					<td width="33%">
 					<input type="button" id="userTempSet" onclick="setUserTemp()" value="Cambiar" />
 					</td>
 				</tr>
 				<tr>
-					<td>Temp L&iacute;mite:</td>
-					<td>
-					<select id="backTempSelect">
+					<td width="33%">Temp L&iacute;mite:</td>
+					<td width="33%">
+					<select id="backTempSelect" class="areaoftext">
 						<option selected value="0"> -- </option>
 						<option value="1"> 17 ºC </option>
 						<option value="2"> 18 ºC </option>
@@ -81,23 +88,23 @@
 						<option value="8"> 24 ºC </option>
 					</select>
 					</td>
-					<td>
+					<td width="33%">
 					<input type="button" id="backTempSet" onclick="setBackTemp()" value="Cambiar" />
 					</td>
 				</tr>
 				<tr>
-					<td>Comienzo Programada:</td>
-					<td><textarea rows="1" cols="10" id="startTimeSelect"></textarea>
+					<td width="33%">Comienzo Programada:</td>
+					<td width="33%"><textarea rows="1" class="areaoftext" cols="10" id="startTimeSelect"></textarea>
 					</td>
 					<td>
 					<input type="button" id="startTimeSet" onclick="setStartTime()" value="Cambiar" />
 					</td>
 				</tr>
 				<tr>
-					<td>Fin Programada:</td>
-					<td><textarea rows="1" cols="10" id="stopTimeSelect"></textarea>
+					<td width="33%">Fin Programada:</td>
+					<td width="33%"><textarea rows="1" class="areaoftext" cols="10" id="stopTimeSelect"></textarea>
 					</td>
-					<td>
+					<td width="33%">
 					<input type="button" id="stopTimeSet" onclick="setStopTime()" value="Cambiar" />
 					</td>
 				</tr>
