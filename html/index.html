@@ -14,40 +14,40 @@
 		<h1>TIZA & TIZON'S PLACE</h1>
 		</div>
 		
-		<input type="button" onclick="startConnect()" value="Conectar">
-		<input type="button" onclick="startDisconnect()" value="Desconectar">
+		<input type="button_large" onclick="startConnect()" value="Conectar">
+		<input type="button_large" onclick="startDisconnect()" value="Desconectar">
 		<div class="property">
 			<b>Estado:</b><br>	
 			<table class="my-table">
 				<tr>
-					<td width="33%">Estado Caldera:</td>
-					<td width="33%"><textarea rows="1" class="areaoftext" cols="10" id="boilerStatus" disabled></textarea></td>
-					<td width="33%"></td>
+					<td>Estado Caldera:</td>
+					<td><textarea rows="1" class="areaoftext" cols="10" id="boilerStatus" disabled></textarea></td>
+					<td></td>
 				</tr>
 				<tr>
-					<td width="33%">Temp Actual:</td>
-					<td width="33%"><textarea rows="1" class="areaoftext" cols="10" id="currentTemp" disabled></textarea></td>
-					<td width="33%"></td>
+					<td>Temp Actual:</td>
+					<td><textarea rows="1" class="areaoftext" cols="10" id="currentTemp" disabled></textarea></td>
+					<td></td>
 				</tr>
 				<tr>
-					<td width="33%">Temp Programada:</td>
-					<td width="33%"><textarea rows="1" class="areaoftext" cols="10" id="userTemp" disabled></textarea></td>
-					<td width="33%"></td>
+					<td>Temp Programada:</td>
+					<td><textarea rows="1" class="areaoftext" cols="10" id="userTemp" disabled></textarea></td>
+					<td></td>
 				</tr>
 				<tr>
-					<td width="33%">Temp L&iacute;mite:</td>
-					<td width="33%"><textarea rows="1" class="areaoftext" cols="10" id="backTemp" disabled></textarea></td>
-					<td width="33%"></td>
+					<td>Temp L&iacute;mite:</td>
+					<td><textarea rows="1" class="areaoftext" cols="10" id="backTemp" disabled></textarea></td>
+					<td></td>
 				</tr>
 				<tr>
-					<td width="33%">Comienzo Programada:</td>
-					<td width="33%"><textarea rows="1" class="areaoftext" cols="10" id="startTime" disabled></textarea></td>
-					<td width="33%"></td>
+					<td>Comienzo Programada:</td>
+					<td><textarea rows="1" class="areaoftext" cols="10" id="startTime" disabled></textarea></td>
+					<td></td>
 				</tr>
 				<tr>
-					<td width="33%">Fin Programada:</td>
-					<td width="33%"><textarea rows="1" class="areaoftext" cols="10" id="stopTime" disabled></textarea></td>
-					<td width="33%"></td>
+					<td>Fin Programada:</td>
+					<td><textarea rows="1" class="areaoftext" cols="10" id="stopTime" disabled></textarea></td>
+					<td></td>
 				</tr>
 			</table>
 		</div>
@@ -55,8 +55,8 @@
 			<b>Opciones:</b><br>	
 			<table class="my-table">
 				<tr>
-					<td width="33%">Temp Programada:</td>
-					<td width="33%">
+					<td>Temp Programada:</td>
+					<td>
 					<select id="userTempSelect" class="areaoftext">
 						<option selected value="0"> -- </option>
 						<option value="1"> 17 ºC </option>
@@ -69,13 +69,13 @@
 						<option value="8"> 24 ºC </option>
 					</select>
 					</td>
-					<td width="33%">
-					<input type="button" id="userTempSet" onclick="setUserTemp()" value="Cambiar" />
+					<td>
+					<input type="button_short" id="userTempSet" onclick="setUserTemp()" value="Cambiar" />
 					</td>
 				</tr>
 				<tr>
-					<td width="33%">Temp L&iacute;mite:</td>
-					<td width="33%">
+					<td>Temp L&iacute;mite:</td>
+					<td>
 					<select id="backTempSelect" class="areaoftext">
 						<option selected value="0"> -- </option>
 						<option value="1"> 17 ºC </option>
@@ -88,24 +88,24 @@
 						<option value="8"> 24 ºC </option>
 					</select>
 					</td>
-					<td width="33%">
-					<input type="button" id="backTempSet" onclick="setBackTemp()" value="Cambiar" />
+					<td>
+					<input type="button_short" id="backTempSet" onclick="setBackTemp()" value="Cambiar" />
 					</td>
 				</tr>
 				<tr>
-					<td width="33%">Comienzo Programada:</td>
-					<td width="33%"><textarea rows="1" class="areaoftext" cols="10" id="startTimeSelect"></textarea>
+					<td>Comienzo Programada:</td>
+					<td><textarea rows="1" class="areaoftext" cols="10" id="startTimeSelect"></textarea>
 					</td>
 					<td>
-					<input type="button" id="startTimeSet" onclick="setStartTime()" value="Cambiar" />
+					<input type="button_short" id="startTimeSet" onclick="setStartTime()" value="Cambiar" />
 					</td>
 				</tr>
 				<tr>
-					<td width="33%">Fin Programada:</td>
-					<td width="33%"><textarea rows="1" class="areaoftext" cols="10" id="stopTimeSelect"></textarea>
+					<td>Fin Programada:</td>
+					<td><textarea rows="1" class="areaoftext" cols="10" id="stopTimeSelect"></textarea>
 					</td>
-					<td width="33%">
-					<input type="button" id="stopTimeSet" onclick="setStopTime()" value="Cambiar" />
+					<td>
+					<input type="button_short" id="stopTimeSet" onclick="setStopTime()" value="Cambiar" />
 					</td>
 				</tr>
 			</table>
