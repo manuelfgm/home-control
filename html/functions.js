@@ -111,7 +111,7 @@ function setStartTime(){
 	
 	var sel = document.getElementById("startTimeSelect").value;
 	message = new Paho.MQTT.Message(sel);
-	message.destinationName = "home/params/set/time_start";
+	message.destinationName = "home/params/set/start_time";
 	client.send(message);
 }
 
@@ -120,7 +120,7 @@ function setStopTime(){
 	
 	var sel = document.getElementById("stopTimeSelect").value;
 	message = new Paho.MQTT.Message(sel);
-	message.destinationName = "home/params/set/time_stop";
+	message.destinationName = "home/params/set/stop_time";
 	client.send(message);
 }
 
