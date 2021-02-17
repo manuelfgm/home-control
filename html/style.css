@@ -1,0 +1,92 @@
+body {
+    font-family: "Open Sans", sans-serif;
+}
+.content {
+	max-width: 90%;
+	margin: auto;
+	font-family:myfont, Arial;;
+	font-size:18px;
+	color: #3d434c;
+}
+.title {
+	margin: auto;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	text-align: center;
+	font-family:myfont, Arial;;
+	font-size: 24px;
+	color: #3d434c;
+}
+.property{
+	font-family:myfont, Arial;;
+	font-size:16px;
+	color: #3d434c;
+	background-color: #f4f5f7;
+	border-radius: 15px;
+	padding-top: 10px;
+	padding-left: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border-top: 10px;
+	border-left: 10px;
+	padding-bottom : 10px;
+}
+.areaoftext{
+	font-size:16px;
+	border-radius: 4px;
+}
+.my-table{
+}
+.button_large{
+    margin: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+	text-align: center;
+    width : 150px;
+    background-color: gray;
+	font-size:16px;
+    border: none;
+    color: black;
+    padding: 4px;
+	border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 1px 1px;
+    cursor: pointer;
+}
+.button_short {
+    margin: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+	text-align: center;
+    width : 75px;
+    background-color: gray;
+	font-size:16px;
+    border: none;
+    color: black;
+    padding: 4px;
+	border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 1px 1px;
+    cursor: pointer;
+}
+#messages {
+	font-family:myfont, Arial;;
+	font-size:10px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    padding: 12px;
+    width:100%;
+    display: inline-block;
+    border:1px solid black;
+    max-height: 250px;
+    min-height: 250px;
+    overflow: scroll;
+}
+#messages span {
+    overflow-y: scroll;
+    overflow: scroll;
+}
