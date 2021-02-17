@@ -60,7 +60,7 @@ sudo apt install apache2 -y
 ```
 Try to connect to http://localhost/ from the RPi or http://xxx.xxx.x.xxx/ whatever the ip of the raspbery is. The webpage of apache server is in `/var/www/html/`. Everytime you need to apply changes in your server you must cp the `html` folder from the git repository to there:
 ```
-cd code/remoteonoff
+cd automatic_boiler
 cp -r html /var/www/
 ```
 
@@ -74,7 +74,7 @@ Install de driver of the programmer (with the programmer already connected): htt
 ### MQTT hardware clients
 ```
 crontab -e
-@reboot sleep 30; cd /home/pi/code/remoteonoff/src/rpi; /usr/bin/python3 remoteonoff.py
+@reboot sleep 30; cd /path_to_code/automatic_boiler/src/rpi; /usr/bin/python3 boiler.py
 
 ```
 ### MQTT javascript client
