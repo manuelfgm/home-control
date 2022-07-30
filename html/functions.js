@@ -3,7 +3,7 @@ function startConnect() {
 	document.getElementById("boilerStatus").style.color="#3d434c";
 	
     // Generate a random client ID
-    clientID = "clientID-" + parseInt(Math.random() * 100);
+    clientID = "clientID-" + parseInt(Math.random() * 1000);
 
     // Fetch the hostname/IP address and port number from the form
     host = "192.168.1.100";//document.getElementById("host").value;
