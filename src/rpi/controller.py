@@ -22,8 +22,8 @@ class Controller:
 
     @classmethod
     def fromdict(cls, datadic):
-        time_start = datetime.strptime(datadic["time_start"], "%H:%M")
-        time_stop = datetime.strptime(datadic["time_stop"], "%H:%M")
+        time_start = datetime.strptime(datadic["time_start"], "%H:%M").time()
+        time_stop = datetime.strptime(datadic["time_stop"], "%H:%M").time()
         user_temp = datadic["user_temp"]
         back_temp = datadic["back_temp"]
         return cls(
