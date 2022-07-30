@@ -6,6 +6,7 @@ from datetime import datetime
 import time
 import sys
 import paho.mqtt.client as mqtt
+import RPi.GPIO as GPIO
 
 
 controller = Controller()
@@ -52,7 +53,8 @@ print("**************** Automatic Boiler program ***************")
 
 # Configuration
 DHT_SENSOR = Adafruit_DHT.DHT22
-DHT_PIN = 4
+DHT_PIN_DATA = 4
+DHT_PIN_POWER = 27
 client = mqtt.Client("RPi")
 client.connect("localhost")
 client.subscribe("home/relay/status")
@@ -63,6 +65,11 @@ client.loop_start()
 global set_flag
 set_flag = False
 
+# Initialization
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(DHT_PIN_POWER, GPIO.OUT)
+GPIO.output(DHT_PIN_POWER, GPIO.HIGH)
+
 # Log file
 for handler in logging.root.handlers[:]:
     logging.root.removeHandler(handler)
@@ -72,14 +79,15 @@ log_file = "../../logs/boiler_" + now_str + ".log"
 logging.basicConfig(filename = log_file, level = logging.INFO)
 print("- File " + log_file + " created")
 
-# First read is deprecated
-humidity, temperature = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_PIN)
-
 # Main loop
 while True:
+    GPIO.output(DHT_PIN_POWER, GPIO.HIGH)
+
+    # First read is deprecated
+    humidity, temperature = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_PIN_DATA)
 
     # Read sensor and time
-    humidity, temperature = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_PIN)
+    humidity, temperature = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_PIN_DATA)
     now = datetime.now()
     log_str = now.strftime("%Y/%m/%d_%H:%M:%S")
 
@@ -103,6 +111,8 @@ while True:
 
     # Wait
     i = 0
+    GPIO.output(DHT_PIN_POWER, GPIO.LOW)
+
     while True:
         time.sleep(1)
         i += 1
