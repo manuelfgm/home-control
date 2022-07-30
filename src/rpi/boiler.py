@@ -7,9 +7,13 @@ import time
 import sys
 import paho.mqtt.client as mqtt
 import RPi.GPIO as GPIO
+import json
 
 
-controller = Controller()
+with open('config.json') as f:
+    dic = json.load(f)
+    
+controller = Controller.fromdict(dic)
 
 def on_message(client, userdata, message):
     global set_flag

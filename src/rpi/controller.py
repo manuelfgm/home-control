@@ -1,5 +1,5 @@
 from datetime import time
-import requests
+from datetime import datetime
 import enum
 
 class ControlResult(enum.IntEnum):
@@ -9,15 +9,29 @@ class ControlResult(enum.IntEnum):
     ERROR = 3
 
 class Controller:
-    def __init__(self, start = time(hour = 18, minute = 0, second = 0, microsecond = 0),
-                 stop = time(hour = 22, minute = 0, second = 0, microsecond = 0)):
+    def __init__(self,
+                start = time(hour = 18, minute = 0, second = 0, microsecond = 0),
+                stop = time(hour = 22, minute = 0, second = 0, microsecond = 0),
+                usert = 20.0,
+                backt = 18.0):
         self.__time_start = start
         self.__time_stop = stop
-        self.__user_temp = 20.0
-        self.__back_temp = 18.0
+        self.__user_temp = usert
+        self.__back_temp = backt
         self.__target_temp = self.__back_temp
-        self.__margin = 0.1
 
+    @classmethod
+    def fromdict(cls, datadic):
+        time_start = datetime.strptime(datadic("time_start"), "%H:%M")
+        time_stop = datetime.strptime(datadic("time_stop"), "%H:%M")
+        user_temp = datadic("user_temp")
+        back_temp = datadic("back_temp")
+        return cls(
+            start = time_start,
+            stop = time_stop,
+            usert = user_temp,
+            backt = back_temp,
+        )
 
     def get_time_start(self):
         return self.__time_start
