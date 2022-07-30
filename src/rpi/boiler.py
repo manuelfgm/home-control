@@ -10,9 +10,9 @@ import RPi.GPIO as GPIO
 import json
 
 
-with open('config.json') as f:
+with open('conf.json') as f:
     dic = json.load(f)
-    
+
 controller = Controller.fromdict(dic)
 
 def on_message(client, userdata, message):
