@@ -22,10 +22,10 @@ class Controller:
 
     @classmethod
     def fromdict(cls, datadic):
-        time_start = datetime.strptime(datadic("time_start"), "%H:%M")
-        time_stop = datetime.strptime(datadic("time_stop"), "%H:%M")
-        user_temp = datadic("user_temp")
-        back_temp = datadic("back_temp")
+        time_start = datetime.strptime(datadic["time_start"], "%H:%M")
+        time_stop = datetime.strptime(datadic["time_stop"], "%H:%M")
+        user_temp = datadic["user_temp"]
+        back_temp = datadic["back_temp"]
         return cls(
             start = time_start,
             stop = time_stop,
