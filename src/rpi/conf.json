@@ -8,7 +8,10 @@
     "airconds": [
         {
             "name": "bedroom",
-            "mac": "EC:0B:AE:A3:76:5D"
+            "mac": "EC:0B:AE:A3:76:5D",
+            "on_temp": 30.0,
+            "off_temp": 27.3,
+            "off_force": false
         }
     ]
 }

@@ -14,11 +14,11 @@ class Boiler:
                 stop = time(hour = 22, minute = 0, second = 0, microsecond = 0),
                 usert = 20.0,
                 backt = 18.0):
-        self.__time_start = start
-        self.__time_stop = stop
-        self.__user_temp = usert
-        self.__back_temp = backt
-        self.__target_temp = self.__back_temp
+        self.time_start = start
+        self.time_stop = stop
+        self.user_temp = usert
+        self.back_temp = backt
+        self.target_temp = self.back_temp
 
     @classmethod
     def fromdict(cls, datadic):
@@ -30,57 +30,57 @@ class Boiler:
             start = time_start,
             stop = time_stop,
             usert = user_temp,
-            backt = back_temp,
+            backt = back_temp
         )
 
     def get_time_start(self):
-        return self.__time_start
+        return self.time_start
 
 
     def set_time_start(self, value):
-        self.__time_start = value
+        self.time_start = value
 
 
     def get_time_stop(self):
-        return self.__time_stop
+        return self.time_stop
 
 
     def set_time_stop(self, value):
-        self.__time_stop = value
+        self.time_stop = value
 
 
     def get_user_temp(self):
-        return self.__user_temp
+        return self.user_temp
 
 
     def set_user_temp(self, value):
-        self.__user_temp = round(value, 1)
+        self.user_temp = round(value, 1)
 
 
     def get_back_temp(self):
-        return self.__back_temp
+        return self.back_temp
 
 
     def set_back_temp(self, value):
-        self.__back_temp = round(value, 1)
+        self.back_temp = round(value, 1)
 
 
     def get_back_temp(self):
-        return self.__back_temp
+        return self.back_temp
 
     def get_target_temp(self):
-        return self.__target_temp
+        return self.target_temp
 
 
     def control(self, temp, time):
-        if (time >= self.__time_start) and (time <= self.__time_stop):
-            self.__target_temp = self.__user_temp
+        if (time >= self.time_start) and (time <= self.time_stop):
+            self.target_temp = self.user_temp
         else:
-            self.__target_temp = self.__back_temp
+            self.target_temp = self.back_temp
 
-        if round(temp, 1) < self.__target_temp:
+        if round(temp, 1) < self.target_temp:
             return ControlResult.TURN_ON
-        elif round(temp, 1) > self.__target_temp:
+        elif round(temp, 1) > self.target_temp:
             return ControlResult.TURN_OFF
         else:
             return ControlResult.NO_ACTION
