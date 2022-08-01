@@ -50,7 +50,7 @@ def on_message(client, userdata, message):
         client.publish(BOILER_MSG + "status/stop_time", boiler.get_time_stop().strftime("%H:%M"))
         client.publish(BOILER_MSG + "status/user_temp", boiler.get_user_temp())
         client.publish(BOILER_MSG + "status/back_temp", boiler.get_back_temp())
-    elif message.topic == "home/relay/status":
+    elif message.topic == BOILER_MSG + "status":
         logging.info("Boiler Feedback: " + str(message.payload.decode("utf-8")))
 
 

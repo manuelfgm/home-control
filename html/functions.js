@@ -39,7 +39,7 @@ function onConnect() {
 	
 	// Send update commands
 	message1 = new Paho.MQTT.Message("1");
-	message1.destinationName = "home/relay/get";
+	message1.destinationName = "home/boiler/get";
 	client.send(message1);
 	message2 = new Paho.MQTT.Message("1");
 	message2.destinationName = "home/params/get";
@@ -65,17 +65,17 @@ function onMessageArrived(message) {
 		"-" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + ": " +
 		topic + '  | ' + value + '</span><br/>';
     updateScroll();
-	if(topic == "home/params/status/start_time"){
+	if(topic == "home/boiler/status/start_time"){
 		document.getElementById("startTime").innerHTML = value;
-	}else if(topic == "home/params/status/stop_time"){
+	}else if(topic == "home/boiler/status/stop_time"){
 		document.getElementById("stopTime").innerHTML = value;
-	}else if(topic == "home/params/status/user_temp"){
+	}else if(topic == "home/boiler/status/user_temp"){
 		document.getElementById("userTemp").innerHTML = value + ' ºC';
-	}else if(topic == "home/params/status/back_temp"){
+	}else if(topic == "home/boiler/status/back_temp"){
 		document.getElementById("backTemp").innerHTML = value + ' ºC';
 	}else if(topic == "home/params/status/curr_temp"){
 		document.getElementById("currentTemp").innerHTML = value + ' ºC';
-	}else if(topic == "home/relay/status"){
+	}else if(topic == "home/boiler/status"){
 		document.getElementById("boilerStatus").innerHTML = value;
 		if(value=="OFF"){
 			document.getElementById("boilerStatus").style.color="#dd0000";
@@ -87,13 +87,27 @@ function onMessageArrived(message) {
 	}
 }
 
+function selectControl(){
+	var sel = document.getElementById("controlSelect").value;
+
+	if (sel == 1){
+		document.getElementById("boilerOpt").style.display = 'block';
+		document.getElementById("boilerOpt").style.display = 'block';
+	} else if (sel == 2){
+		document.getElementById("boilerOpt").style.display = 'none';
+		document.getElementById("boilerOpt").style.display = 'none';
+	}else{
+		document.getElementById("boilerOpt").style.display = 'none';
+		document.getElementById("boilerOpt").style.display = 'none';
+	}
+}
 
 function setUserTemp(){
 	document.getElementById("boilerStatus").style.color="#3d434c";
 	
 	var sel = Number(document.getElementById("userTempSelect").value) + 16;
 	message = new Paho.MQTT.Message(sel.toString());
-	message.destinationName = "home/params/set/user_temp";
+	message.destinationName = "home/boiler/set/user_temp";
 	client.send(message);
 }
 
@@ -102,7 +116,7 @@ function setBackTemp(){
 	
 	var sel = Number(document.getElementById("backTempSelect").value) + 16;
 	message = new Paho.MQTT.Message(sel.toString());
-	message.destinationName = "home/params/set/back_temp";
+	message.destinationName = "home/boiler/set/back_temp";
 	client.send(message);
 }
 
@@ -111,7 +125,7 @@ function setStartTime(){
 	
 	var sel = document.getElementById("startTimeSelect").value;
 	message = new Paho.MQTT.Message(sel);
-	message.destinationName = "home/params/set/start_time";
+	message.destinationName = "home/boiler/set/start_time";
 	client.send(message);
 }
 
@@ -120,7 +134,7 @@ function setStopTime(){
 	
 	var sel = document.getElementById("stopTimeSelect").value;
 	message = new Paho.MQTT.Message(sel);
-	message.destinationName = "home/params/set/stop_time";
+	message.destinationName = "home/boiler/set/stop_time";
 	client.send(message);
 }
 

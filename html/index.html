@@ -16,7 +16,16 @@
 		
 		<input type="button" class = "button_large" onclick="startConnect()" value="Conectar">
 		<input type="button" class = "button_large" onclick="startDisconnect()" value="Desconectar">
-		<div class="property">
+		
+		<br>
+		Dispositivo:
+		<select id="controlSelect" onchange="selectControl()" class="areaoftext">		
+			<option selected value="0"> -- </option>
+			<option value="1"> Caldera </option>
+			<option value="2"> Aire Ac. </option>
+		</select>
+
+		<div id="boilerSect" style="display:none" class="property">
 			<b>Estado:</b><br>	
 			<table class="my-table">
 				<tr>
@@ -51,7 +60,7 @@
 				</tr>
 			</table>
 		</div>
-		<div class="property">
+		<div id="boilerOpt" style="display:none" class="property">
 			<b>Opciones:</b><br>	
 			<table class="my-table">
 				<tr>
