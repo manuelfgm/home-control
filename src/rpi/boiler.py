@@ -16,8 +16,8 @@ class Boiler:
                 backt = 18.0):
         self.time_start = start
         self.time_stop = stop
-        self.user_temp = usert
-        self.back_temp = backt
+        self.user_temp = round(usert, 1)
+        self.back_temp = round(backt, 1)
         self.target_temp = self.back_temp
 
     @classmethod

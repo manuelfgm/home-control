@@ -93,10 +93,10 @@ void reconnect()
     if (client.connect("ESP8266Client")) {
       Serial.println("connected");
       // Once connected, publish an announcement...
-      client.publish("home/relay/status", "(Re)Connected");
+      client.publish("home/boiler/status", "(Re)Connected");
       // ... and resubscribe
-      client.subscribe("home/relay/set");
-      client.subscribe("home/relay/get");
+      client.subscribe("home/boiler/set");
+      client.subscribe("home/boiler/get");
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());

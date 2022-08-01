@@ -12,12 +12,12 @@ class AirCond:
                 mac = "",
                 on_temp = 35.0,
                 off_temp = 30.0,
-                off_force = True):
+                manual_mode = False):
         self.name = name
         self.mac = mac
         self.on_temp = round(on_temp, 1)
         self.off_temp = round(off_temp, 1)
-        self.off_force = off_force
+        self.manual = manual_mode
 
     @classmethod
     def fromdict(cls, datadic):
@@ -25,7 +25,7 @@ class AirCond:
         dev_mac = datadic["mac"]
         ont = datadic["on_temp"]
         offt = datadic["off_temp"]
-        offforce = datadic["off_force"]
+        offforce = datadic["manual_mode"]
         return cls(name = dev_name,
                    mac = dev_mac,
                    on_temp = ont,
@@ -44,10 +44,13 @@ class AirCond:
     def set_off_temp(self, value):
         self.off_temp = value
 
-    def set_off_force(self, value):
+    def set_manual_mode(self, value):
         self.off_force = value
 
     def control(self, temp):
+        if self.manual == True:
+            return ControlResult.NO_ACTION
+            
         if(round(temp, 1) < self.off_temp):
             return ControlResult.TURN_OFF
         elif(round(temp, 1) > self.on_temp):
