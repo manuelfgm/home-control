@@ -28,8 +28,8 @@ function startConnect() {
 
 // Called when the client connects
 function onConnect() {
-	
 	document.getElementById("boilerStatus").style.color="#3d434c";
+	document.getElementById("aircondStatus").style.color="#3d434c";
 
     // Print output for the user in the messages div
     document.getElementById("messages").innerHTML += '<span>Subscribing to: home/#</span><br/>';
@@ -41,9 +41,12 @@ function onConnect() {
 	message1 = new Paho.MQTT.Message("1");
 	message1.destinationName = "home/boiler/get";
 	client.send(message1);
-	message2 = new Paho.MQTT.Message("1");
-	message2.destinationName = "home/params/get";
+	message2 = new Paho.MQTT.Message("2");
+	message2.destinationName = "home/aircond/get";
 	client.send(message2);
+	message3 = new Paho.MQTT.Message("3");
+	message3.destinationName = "home/params/get";
+	client.send(message3);
 }
 
 // Called when the client loses its connection
@@ -65,7 +68,9 @@ function onMessageArrived(message) {
 		"-" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + ": " +
 		topic + '  | ' + value + '</span><br/>';
     updateScroll();
-	if(topic == "home/boiler/status/start_time"){
+	if(topic == "home/params/status/curr_temp"){
+		document.getElementById("currentTemp").innerHTML = value + ' ºC';
+	}else if(topic == "home/boiler/status/start_time"){
 		document.getElementById("startTime").innerHTML = value;
 	}else if(topic == "home/boiler/status/stop_time"){
 		document.getElementById("stopTime").innerHTML = value;
@@ -73,8 +78,6 @@ function onMessageArrived(message) {
 		document.getElementById("userTemp").innerHTML = value + ' ºC';
 	}else if(topic == "home/boiler/status/back_temp"){
 		document.getElementById("backTemp").innerHTML = value + ' ºC';
-	}else if(topic == "home/params/status/curr_temp"){
-		document.getElementById("currentTemp").innerHTML = value + ' ºC';
 	}else if(topic == "home/boiler/status"){
 		document.getElementById("boilerStatus").innerHTML = value;
 		if(value=="OFF"){
@@ -84,6 +87,21 @@ function onMessageArrived(message) {
 		}else{
 			document.getElementById("boilerStatus").style.color="#3d434c";
 		}
+	}else if(topic == "home/aircond/status/on_temp"){
+		document.getElementById("startTime").innerHTML = value;
+	}else if(topic == "home/aircond/status/off_temp"){
+		document.getElementById("stopTime").innerHTML = value;
+	}else if(topic == "home/aircond/status/auto"){
+		document.getElementById("userTemp").innerHTML = value + ' ºC';
+	}else if(topic == "home/aircond/status"){
+		document.getElementById("aircondStatus").innerHTML = value;
+		if(value=="OFF"){
+			document.getElementById("aircondStatus").style.color="#dd0000";
+		}else if(value=="ON"){
+			document.getElementById("aircondStatus").style.color="#00dd00"
+		}else{
+			document.getElementById("aircondStatus").style.color="#3d434c";
+		}
 	}
 }
 
@@ -91,17 +109,22 @@ function selectControl(){
 	var sel = document.getElementById("controlSelect").value;
 
 	if (sel == 1){
+		document.getElementById("boilerSect").style.display = 'block';
 		document.getElementById("boilerOpt").style.display = 'block';
-		document.getElementById("boilerOpt").style.display = 'block';
+		document.getElementById("aircondSect").style.display = 'none';
+		document.getElementById("aircondOpt").style.display = 'none';
 	} else if (sel == 2){
+		document.getElementById("boilerSect").style.display = 'none';
 		document.getElementById("boilerOpt").style.display = 'none';
-		document.getElementById("boilerOpt").style.display = 'none';
+		document.getElementById("aircondSect").style.display = 'block';
+		document.getElementById("aircondOpt").style.display = 'block';
 	}else{
-		document.getElementById("boilerOpt").style.display = 'none';
+		document.getElementById("boilerSect").style.display = 'none';
 		document.getElementById("boilerOpt").style.display = 'none';
 	}
 }
 
+// Boiler
 function setUserTemp(){
 	document.getElementById("boilerStatus").style.color="#3d434c";
 	
@@ -138,9 +161,43 @@ function setStopTime(){
 	client.send(message);
 }
 
+// Air cond
+function setAircondTempOn(){
+	document.getElementById("aircondStatus").style.color="#3d434c";
+	
+	var sel = Number(document.getElementById("aircondOnSelect").value) + 25;
+	message = new Paho.MQTT.Message(sel.toString());
+	message.destinationName = "home/aircond/set/on_temp";
+	client.send(message);
+}
+
+function setAircondTempOff(){
+	document.getElementById("aircondStatus").style.color="#3d434c";
+	
+	var sel = Number(document.getElementById("aircondOffSelect").value) + 24;
+	message = new Paho.MQTT.Message(sel.toString());
+	message.destinationName = "home/aircond/set/off_temp";
+	client.send(message);
+}
+
+function setAircondAuto(on){
+	document.getElementById("aircondStatus").style.color="#3d434c";
+	
+	if (on == true){
+		message = new Paho.MQTT.Message("1");
+		message.destinationName = "home/aircond/set/auto";
+		client.send(message);
+	}else{
+		message = new Paho.MQTT.Message("0");
+		message.destinationName = "home/aircond/set/auto";
+		client.send(message);
+	}
+}
+
 // Called when the disconnection button is pressed
 function startDisconnect() {
 	document.getElementById("boilerStatus").style.color="#3d434c";
+	document.getElementById("aircondStatus").style.color="#3d434c";
 	
     client.disconnect();
     document.getElementById("messages").innerHTML += '<span>Disconnected</span><br/>';

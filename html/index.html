@@ -24,7 +24,16 @@
 			<option value="1"> Caldera </option>
 			<option value="2"> Aire Ac. </option>
 		</select>
-
+		
+		<div id="tempSect" class="property">
+			<table class="my-table">
+				<tr>
+					<td>Temp Actual:</td>
+					<td><textarea rows="1" class="areaoftext" cols="7" id="currentTemp" disabled></textarea></td>
+					<td></td>
+				</tr>
+			</table>
+		</div>
 		<div id="boilerSect" style="display:none" class="property">
 			<b>Estado:</b><br>	
 			<table class="my-table">
@@ -116,6 +125,71 @@
 					<td>
 					<input type="button" class = "button_short" id="stopTimeSet" onclick="setStopTime()" value="Cambiar" />
 					</td>
+				</tr>
+			</table>
+		</div>
+		<div id="aircondSect" style="display:none" class="property">
+			<b>Estado:</b><br>	
+			<table class="my-table">
+				<tr>
+					<td>Estado Aire Acond:</td>
+					<td><textarea rows="1" class="areaoftext" cols="7" id="aircondStatus" disabled></textarea></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>Temp On:</td>
+					<td><textarea rows="1" class="areaoftext" cols="7" id="aircondTempOn" disabled></textarea></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>TempOff</td>
+					<td><textarea rows="1" class="areaoftext" cols="7" id="aircondTempOff" disabled></textarea></td>
+					<td></td>
+				</tr>
+			</table>
+		</div>
+		<div id="aircondOpt" style="display:none" class="property">
+			<b>Opciones:</b><br>	
+			<table class="my-table">
+				<tr>
+					<td>Temp On:</td>
+					<td>
+					<select id="aircondOnSelect" class="areaoftext">
+						<option selected value="0"> -- </option>
+						<option value="1"> 26 ºC </option>
+						<option value="2"> 27 ºC </option>
+						<option value="3"> 28 ºC </option>
+						<option value="4"> 29 ºC </option>
+						<option value="5"> 30 ºC </option>
+						<option value="6"> 31 ºC </option>
+					</select>
+					</td>
+					<td>
+					<input type="button" class = "button_short" id="aircondOnTempSet" onclick="setAircondTempOn()" value="Cambiar" />
+					</td>
+				</tr>
+				<tr>
+					<td>Temp L&iacute;mite:</td>
+					<td>
+					<select id="aircondOffSelect" class="areaoftext">
+						<option selected value="0"> -- </option>
+						<option value="1"> 25 ºC </option>
+						<option value="2"> 26 ºC </option>
+						<option value="3"> 27 ºC </option>
+						<option value="4"> 28 ºC </option>
+						<option value="5"> 29 ºC </option>
+						<option value="6"> 30 ºC </option>
+					</select>
+					</td>
+					<td>
+					<input type="button" class = "button_short" id="aircondOffTempSet" onclick="setAircondTempOff()" value="Cambiar" />
+					</td>
+				</tr>
+				<tr>
+					<td>Modo manual:</td>
+					<td><input type="button" class = "button_short" id="aircondManualOn" onclick="setAircondAuto(true)" value="Auto" /></td>
+					<td><input type="button" class = "button_short" id="aircondManualOff" onclick="setAircondAuto(false)" value="Off" /></td>
+					<td></td>
 				</tr>
 			</table>
 		</div>

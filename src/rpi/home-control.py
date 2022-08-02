@@ -8,8 +8,9 @@ import paho.mqtt.client as mqtt
 import RPi.GPIO as GPIO
 import json
 
-BOILER_MSG = 'home/boiler/'
 PARAMS_MSG = 'home/params/'
+BOILER_MSG = 'home/boiler/'
+AIRCOND_MSG = 'home/aircond/'
 
 with open('conf.json') as f:
     dic = json.load(f)

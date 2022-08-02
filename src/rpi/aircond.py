@@ -44,14 +44,15 @@ class AirCond:
     def set_off_temp(self, value):
         self.off_temp = value
 
-    def set_manual_mode(self, value):
+    def set_off_force(self, value):
         self.off_force = value
 
     def control(self, temp):
-        if self.manual == True:
+        if self.off_force == True:
             return ControlResult.NO_ACTION
             
-        if(round(temp, 1) < self.off_temp):
+        if(round(temp, 1) < self.off_temp) or \
+            (self.off_force == True):
             return ControlResult.TURN_OFF
         elif(round(temp, 1) > self.on_temp):
             return ControlResult.TURN_ON

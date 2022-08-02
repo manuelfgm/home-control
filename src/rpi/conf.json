@@ -11,7 +11,7 @@
             "mac": "EC:0B:AE:A3:76:5D",
             "on_temp": 30.0,
             "off_temp": 27.3,
-            "manual_mode": false
+            "off_force": false
         }
     ]
 }
