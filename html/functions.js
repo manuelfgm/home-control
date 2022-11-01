@@ -88,11 +88,14 @@ function onMessageArrived(message) {
 			document.getElementById("boilerStatus").style.color="#3d434c";
 		}
 	}else if(topic == "home/aircond/status/on_temp"){
-		document.getElementById("startTime").innerHTML = value;
+		document.getElementById("aircondTempOn").innerHTML = value + ' ºC';
 	}else if(topic == "home/aircond/status/off_temp"){
-		document.getElementById("stopTime").innerHTML = value;
+		document.getElementById("aircondTempOff").innerHTML = value + ' ºC';
 	}else if(topic == "home/aircond/status/auto"){
-		document.getElementById("userTemp").innerHTML = value + ' ºC';
+		if(value == "OFF"){
+			document.getElementById("aircondAutoOn").
+		}
+		document.getElementById("userTemp").innerHTML = value;
 	}else if(topic == "home/aircond/status"){
 		document.getElementById("aircondStatus").innerHTML = value;
 		if(value=="OFF"){
