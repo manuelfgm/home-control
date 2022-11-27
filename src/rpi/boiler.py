@@ -1,3 +1,4 @@
+
 # Imports
 import logging
 from controller import *
@@ -8,7 +9,16 @@ import sys
 import paho.mqtt.client as mqtt
 import RPi.GPIO as GPIO
 import json
+import os
+import psycopg2
+import pytz
 
+POSTGRES_HOST=os.getenv('POSTGRES_HOST', default='localhost')
+POSTGRES_PORT=os.getenv('POSTGRES_PORT', default=5432)
+POSTGRES_DB  =os.getenv('POSTGRES_DB'  , default='home')
+POSTGRES_USER=os.getenv('POSTGRES_USER', default='default_user')
+POSTGRES_PSSW=os.getenv('POSTGRES_PSSW', default='default_pssw')
+POSTGRES_TABL=os.getenv('POSTGRES_TABL', default='temperature')
 
 with open('conf.json') as f:
     dic = json.load(f)
@@ -83,6 +93,16 @@ log_file = "../../logs/boiler_" + now_str + ".log"
 logging.basicConfig(filename = log_file, level = logging.INFO)
 print("- File " + log_file + " created")
 
+# DB
+conn = psycopg2.connect(
+    host=POSTGRES_HOST,
+    port=POSTGRES_PORT,
+    database=POSTGRES_DB,
+    user=POSTGRES_USER,
+    password=POSTGRES_PSSW)
+conn.autocommit = True
+boiler_st = None
+
 # Main loop
 while True:
     GPIO.output(DHT_PIN_POWER, GPIO.HIGH)
@@ -104,9 +124,25 @@ while True:
         if signal == ControlResult.TURN_ON:
             client.publish("home/relay/set", 1)
             log_str += " ON"
+            boiler_st = True
         elif signal == ControlResult.TURN_OFF:
             client.publish("home/relay/set", 0)
             log_str += " OFF"
+            boiler_st = False
+
+        # Postgres
+        try:
+            cur = conn.cursor()
+            now_sql = datetime.now(pytz.timezone('UTC'))
+            now_str = now_sql.strftime('%Y-%m-%d %H:%M:%S')
+            sql_query = "INSERT INTO " + POSTGRES_TABL + \
+                        "(temperature, humidity, timestamp, boiler)" + \
+                        "VALUES (" + str(round(temperature,1)) + "," + str(round(humidity,1)) + \
+                        ",\'" + now_str + "\'," + str(boiler_st) + ");"
+            cur.execute(sql_query)
+        except Exception as e:
+            log_str += " DBError"
+            print(e)
     else:
         log_str += " Failed to retrieve data from sensor"
 
@@ -120,7 +156,7 @@ while True:
     while True:
         time.sleep(1)
         i += 1
-        if i >= 600 or set_flag:
+        if i >= 590 or set_flag:
             set_flag = 0
             break
 
