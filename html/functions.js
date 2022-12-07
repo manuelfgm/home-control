@@ -100,7 +100,7 @@ function setUserTemp(){
 function setBackTemp(){
 	document.getElementById("boilerStatus").style.color="#3d434c";
 	
-	var sel = Number(document.getElementById("backTempSelect").value) + 16;
+	var sel = Number(document.getElementById("backTempSelect").value) + 14;
 	message = new Paho.MQTT.Message(sel.toString());
 	message.destinationName = "home/params/set/back_temp";
 	client.send(message);
