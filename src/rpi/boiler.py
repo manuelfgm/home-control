@@ -26,33 +26,28 @@ with open('conf.json') as f:
 controller = Controller.fromdict(dic)
 
 def on_message(client, userdata, message):
-    global set_flag
     if message.topic == "home/params/set/start_time":
         param = str(message.payload.decode("utf-8"))
         client.publish("home/params/status/start_time", param)
         start = datetime.strptime(param, "%H:%M")
         controller.set_time_start(start.time())
         logging.info("Set Param Time Start: " + param + "h")
-        set_flag = True
     elif message.topic == "home/params/set/stop_time":
         param = str(message.payload.decode("utf-8"))
         client.publish("home/params/status/stop_time", param)
         stop = datetime.strptime(param, "%H:%M")
         controller.set_time_stop(stop.time())
         logging.info("Set Param Time Stop: " + param + "h")
-        set_flag = True
     elif message.topic == "home/params/set/user_temp":
         param = float(message.payload.decode("utf-8"))
         client.publish("home/params/status/user_temp", param)
         controller.set_user_temp(param)
         logging.info("Set Param User Temp: " + str(param) + "ºC")
-        set_flag = True
     elif message.topic == "home/params/set/back_temp":
         param = float(message.payload.decode("utf-8"))
         client.publish("home/params/status/back_temp", param)
         controller.set_back_temp(param)
         logging.info("Set Param Back Temp: " + str(param) + "ºC")
-        set_flag = True
     elif message.topic == "home/params/get":
         client.publish("home/params/status/curr_temp", "{0:0.1f}".format(temperature))
         client.publish("home/params/status/start_time", controller.get_time_start().strftime("%H:%M"))
@@ -66,6 +61,7 @@ def on_message(client, userdata, message):
 print("**************** Automatic Boiler program ***************")
 
 # Configuration
+UPDATE_MINUTE = 2
 DHT_SENSOR = Adafruit_DHT.DHT22
 DHT_PIN_DATA = 4
 DHT_PIN_POWER = 27
@@ -76,8 +72,6 @@ client.subscribe("home/params/set/#")
 client.subscribe("home/params/get")
 client.on_message = on_message
 client.loop_start()
-global set_flag
-set_flag = False
 
 # Initialization
 GPIO.setmode(GPIO.BCM)
@@ -150,13 +144,11 @@ while True:
     logging.info(log_str)
 
     # Wait
-    i = 0
     GPIO.output(DHT_PIN_POWER, GPIO.LOW)
 
     while True:
         time.sleep(1)
-        i += 1
-        if i >= 590 or set_flag:
-            set_flag = 0
+        now = datetime.now()
+        if ((now.minute % 10) == UPDATE_MINUTE) and (now.second == 0):
             break
 
