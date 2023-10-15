@@ -20,34 +20,44 @@ POSTGRES_USER=os.getenv('POSTGRES_USER', default='default_user')
 POSTGRES_PSSW=os.getenv('POSTGRES_PSSW', default='default_pssw')
 POSTGRES_TABL=os.getenv('POSTGRES_TABL', default='temperature')
 
-with open('conf.json') as f:
+with open('conf.json', 'r') as f:
     dic = json.load(f)
+    f.close()
 
 controller = Controller.fromdict(dic)
 
 def on_message(client, userdata, message):
+    set_flag = False
     if message.topic == "home/params/set/start_time":
         param = str(message.payload.decode("utf-8"))
         client.publish("home/params/status/start_time", param)
         start = datetime.strptime(param, "%H:%M")
         controller.set_time_start(start.time())
         logging.info("Set Param Time Start: " + param + "h")
+        dic["time_start"] = param
+        set_flag = True
     elif message.topic == "home/params/set/stop_time":
         param = str(message.payload.decode("utf-8"))
         client.publish("home/params/status/stop_time", param)
         stop = datetime.strptime(param, "%H:%M")
         controller.set_time_stop(stop.time())
         logging.info("Set Param Time Stop: " + param + "h")
+        dic["time_stop"] = param
+        set_flag = True
     elif message.topic == "home/params/set/user_temp":
         param = float(message.payload.decode("utf-8"))
         client.publish("home/params/status/user_temp", param)
         controller.set_user_temp(param)
         logging.info("Set Param User Temp: " + str(param) + "ºC")
+        dic["user_temp"] = param
+        set_flag = True
     elif message.topic == "home/params/set/back_temp":
         param = float(message.payload.decode("utf-8"))
         client.publish("home/params/status/back_temp", param)
         controller.set_back_temp(param)
         logging.info("Set Param Back Temp: " + str(param) + "ºC")
+        dic["back_temp"] = param
+        set_flag = True
     elif message.topic == "home/params/get":
         client.publish("home/params/status/curr_temp", "{0:0.1f}".format(temperature))
         client.publish("home/params/status/start_time", controller.get_time_start().strftime("%H:%M"))
@@ -57,6 +67,11 @@ def on_message(client, userdata, message):
     elif message.topic == "home/relay/status":
         logging.info("Boiler Feedback: " + str(message.payload.decode("utf-8")))
 
+    if set_flag == True:
+        conf_str = json.dumps(dic, indent=4)
+        with open('conf.json', 'w') as f:
+            f.write(conf_str)
+            f.close()
 
 print("**************** Automatic Boiler program ***************")
 
