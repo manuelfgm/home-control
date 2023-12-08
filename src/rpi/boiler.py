@@ -18,7 +18,7 @@ POSTGRES_DB  =os.getenv('POSTGRES_DB'  , default='home')
 POSTGRES_USER=os.getenv('POSTGRES_USER', default='default_user')
 POSTGRES_PSSW=os.getenv('POSTGRES_PSSW', default='default_pssw')
 POSTGRES_TABL=os.getenv('POSTGRES_TABL', default='temperature')
-POSTGRES_ROOM=os.getenv('POSTGRES_ROOM', default='debroom')
+POSTGRES_ROOM=os.getenv('POSTGRES_ROOM', default='bedroom')
 
 with open('conf.json', 'r') as f:
     dic = json.load(f)
@@ -71,14 +71,14 @@ def on_message(client, userdata, message):
         logging.info("Room Status: " + str(msg))
         data = json.loads(msg)
         try:
-            cur = conn.cursor()
-            now_sql = datetime.now(pytz.timezone('UTC'))
-            now_str = now_sql.strftime('%Y-%m-%d %H:%M:%S')
-            sql_query = "INSERT INTO " + POSTGRES_ROOM + \
+            cursor = conn.cursor()
+            now_sql2 = datetime.now(pytz.timezone('UTC'))
+            now_str2 = now_sql.strftime('%Y-%m-%d %H:%M:%S')
+            query = "INSERT INTO " + POSTGRES_ROOM + \
                         "(temperature, humidity, timestamp)" + \
                         "VALUES (" + str(round(data["temp"],1)) + "," + str(round(data["hum"],1)) + \
                         ",\'" + now_str + "\'" ");"
-            cur.execute(sql_query)
+            cur.execute(query)
         except Exception as e:
             log_str += " DBError"
             print(e)
