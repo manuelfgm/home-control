@@ -16,7 +16,7 @@
 #define DHTTYPE DHT22     // Sensor DHT22
 #define DHTPIN D3         // DHT sensor pin
 #define LED D4            // Built-in led
-#define SLEEP_TIME_MIN 1 // sleep time in minutes 
+#define SLEEP_TIME_MIN 10 // sleep time in minutes 
 
 DHT dht(DHTPIN, DHTTYPE);
 
