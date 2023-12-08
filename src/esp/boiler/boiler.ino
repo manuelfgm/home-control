@@ -2,6 +2,14 @@
 #include <PubSubClient.h>
 #include "config.h"
 
+//**********************************************************
+// config.h must be something like this:
+// const char* WIFI_ID = "YourWifiName";
+// const char* WIFI_PSSWD  = "Your Password";
+// const char* MQTT_SERVER = "URL of the MQTT server";
+// const int MQTT_SERVER_PORT = 1883;
+//**********************************************************
+
 #define RELAY 0
 #define LED 2
 
@@ -11,8 +19,6 @@ IPAddress subnet(255,255,255,0);
 
 WiFiClient espClient;
 PubSubClient client(espClient);
-char msg[50];
-int value = 0;
 
 void configureWifi()
 {
