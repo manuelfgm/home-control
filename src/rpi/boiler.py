@@ -73,7 +73,7 @@ def on_message(client, userdata, message):
         try:
             cursor = conn.cursor()
             now_sql2 = datetime.now(pytz.timezone('UTC'))
-            now_str2 = now_sql.strftime('%Y-%m-%d %H:%M:%S')
+            now_str2 = now_sql2.strftime('%Y-%m-%d %H:%M:%S')
             query = "INSERT INTO " + POSTGRES_ROOM + \
                         "(temperature, humidity, timestamp)" + \
                         "VALUES (" + str(round(data["temp"],1)) + "," + str(round(data["hum"],1)) + \
