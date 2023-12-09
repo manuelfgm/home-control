@@ -77,7 +77,7 @@ def on_message(client, userdata, message):
             query = "INSERT INTO " + POSTGRES_ROOM + \
                         "(temperature, humidity, timestamp)" + \
                         "VALUES (" + str(round(data["temp"],1)) + "," + str(round(data["hum"],1)) + \
-                        ",\'" + now_str + "\'" ");"
+                        ",\'" + now_str2 + "\'" ");"
             cur.execute(query)
         except Exception as e:
             log_str += " DBError"
